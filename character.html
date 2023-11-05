@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+    <title>Projeto Rick and Morty</title>
+
+<style>
+
+body{
+    background-image: url(https://w.forfun.com/fetch/03/03fdb791c0c8753db54348da091ba79b.jpeg);
+    background-size: cover;
+    background-position: auto;
+    background-repeat: no-repeat;
+}
+
+
+
+h1 {
+    text-align: center;
+    position: relative;
+    font-family: 'Nosifer', sans-serif;
+    color: rgb(34, 170, 163);
+    font-size: 300%;
+    text-shadow: 10px 10px 10px rgba(2, 2, 2, 0.616)
+}
+
+h2{
+    text-align: center;
+    position: relative;
+    font-family: 'Nosifer', sans-serif;
+    color: rgb(34, 170, 163);
+    font-size: 150%;
+    text-shadow: 10px 10px 10px rgba(0, 0, 0, 0.616)
+}
+
+p{
+
+font-family: 'Acme', sans-serif;
+color: rgb(0, 0, 0);
+font-size: 100%;
+
+}
+
+
+
+.card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+
+}
+.card{
+    width: 200px;
+    padding: 100px;
+    margin: 20px;
+    background-color: rgba(245, 236, 245, 0.733);
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+img{
+    width: 100%;
+    height: fit-content;
+    
+}
+
+
+</style>
+
+</head>
+<body>
+    <h1>Personagem</h1>
+    <div id="character-info"></div>
+    
+    <script>
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const characterId = urlParams.get('id');
+
+        const characterInfoURL = `https://rickandmortyapi.com/api/character/${characterId}`;
+
+        fetch(characterInfoURL)
+            .then(response => response.json())
+            .then(data => {
+                var result = '';
+                result += `<h2>${data.name}</h2>`;
+                result += `<div class="card-container"> <div class="card"> <img src="${data.image}" alt="${data.name}">`;
+                result += `<p>Status: ${data.status}</p>`;
+                result += `<p>Species: ${data.species}</p>`;
+                result += `<p>Type: ${data.type}</p>`;
+                result += `<p>Origin: ${data.origin.name}</p>`;
+                result += `<p>Location: ${data.location.name}</p></div></div>`;           
+                document.getElementById('character-info').innerHTML = result;
+            })
+            .catch(error => console.error('Error:', error));
+    </script>
+</body>
+</html>

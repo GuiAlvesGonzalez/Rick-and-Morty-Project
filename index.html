@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nosifer&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Acme&display=swap" rel="stylesheet">
+    <title>Projeto Rick and Morty</title>
+    
+
+    
+<style>
+ *{
+    margin: 0;
+    padding: 0%;
+    box-sizing: 0;
+ }
+
+
+body{
+    width: 100vw;
+    height: 100vh;
+    background-image: url(https://cdn.pixabay.com/photo/2019/01/02/02/37/background-3907905_1280.jpg);
+    background-size: 100%;
+
+}
+
+h1{
+    text-align: center;
+    position: relative;
+    font-family: 'Nosifer', sans-serif;
+    color: rgb(34, 170, 163);
+    font-size: 300%;
+    text-shadow: 5px 5px 5px rgba(58, 236, 22, 0.616)
+    
+    
+}
+
+
+li{
+width: 320px;
+height: auto;
+display: inline-block;
+border-radius: 15px;
+font-family: 'Acme', sans-serif;
+color: rgb(34, 170, 163);
+font-size: 120%;
+text-shadow: 1px 1px 1px rgb(0, 0, 0)
+
+}
+
+#search-input::placeholder {
+            color: #615c5c;
+            font-style: italic;
+}
+
+
+#search-form{
+    text-align: center;
+    position: relative;
+    
+}
+button{
+    color: rgb(7, 7, 7);
+    width: 2%;
+    height: 2%;
+}
+
+</style>
+
+</head>
+<body>
+    <h1>Rick and Morty</h1>  
+    <form id="search-form">
+        <strong><label for="search-input"></label></strong>
+        <input type="text" id="search-input" name="search-input" placeholder="Pesquisar personagem">  
+        <button type="submit">🔍</button>
+    </form>
+    <div id="result"></div>
+
+    <script>
+        document.getElementById('search-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var searchInput = document.getElementById('search-input').value;
+            var searchURL = `https://rickandmortyapi.com/api/character?name=${searchInput}`;
+
+            fetch(searchURL)
+                .then(response => response.json())
+                .then(data => {
+                    var result = '<ul>';
+                    data.results.forEach(function(character) {
+                        result += `<li><a href="character.html?id=${character.id}"><br><img src="${character.image}"</br><br><stong>${character.name}</strong></br></a></li>`;
+                    });
+                    result += '</ul>';
+                    document.getElementById('result').innerHTML = result;
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
